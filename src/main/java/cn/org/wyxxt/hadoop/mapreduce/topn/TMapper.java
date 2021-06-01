@@ -1,10 +1,11 @@
 package cn.org.wyxxt.hadoop.mapreduce.topn;
 
-import org.apache.commons.lang.StringUtils;
+
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.util.StringUtils;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -32,8 +33,8 @@ public class TMapper extends Mapper<LongWritable, Text, TKey, IntWritable> {
         // 开发习惯，不要过于自信
         //value 2019-6-1 22:22:22   1   31
         String[] strs = StringUtils.split(value.toString(), '\t');
-        //2019-6-1 22:22:22  / 1  / 31
-
+        // 2019-6-1 22:22:22  / 1  / 31
+        System.out.println(strs);
         try {
             Date date = sdf.parse(strs[0]);
             cal.setTime(date);
@@ -43,7 +44,7 @@ public class TMapper extends Mapper<LongWritable, Text, TKey, IntWritable> {
             int wd = Integer.parseInt(strs[2]);
             mkey.setWd(wd);
             mval.set(wd);
-
+//            System.out.println(mkey + ":" + mval);
             context.write(mkey, mval);
 
         } catch (ParseException e) {

@@ -17,10 +17,12 @@ import org.apache.hadoop.util.GenericOptionsParser;
 public class MyTopN {
     public static void main(String[] args) throws Exception {
 
+        System.setProperty("HADOOP_USER_NAME", "root");
+
         Configuration conf = new Configuration(true);
 
 
-        conf.set("mapreduce.framework.name", "local");
+//        conf.set("mapreduce.framework.name", "local");
         conf.set("mapreduce.app-submission.cross-platform", "true");
 
 
@@ -29,6 +31,8 @@ public class MyTopN {
         Job job = Job.getInstance(conf);
         job.setJarByClass(MyTopN.class);
         job.setJobName("TopN");
+
+        job.setJar("/Users/xingzhiwei/java/hadoop/target/hadoop-1.0-SNAPSHOT.jar");
 
         // 初学者，关注的是client端的代码梳理：因为把这块写明白了，其实你也就真的知道这个作业的开发原理
 
